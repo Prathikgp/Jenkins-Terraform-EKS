@@ -1,9 +1,9 @@
 module "eks" {
         source = "terraform-aws-modules/eks/aws"
-        version = "19.15.1"
+        version = "~> 20.0"
 
         cluster_name = local.name
-        cluster_version = "1.27"
+        cluster_version = "1.31"
         cluster_endpoint_public_access = true
 
         cluster_addons = {
@@ -24,7 +24,7 @@ module "eks" {
 
         eks_managed_node_group_defaults = {
             ami_type = "AL2_x86_64"
-            instance_types = ["m5.large"]
+            instance_types = ["t3.large"]
 
             attach_cluster_primary_security_group = true
         }
