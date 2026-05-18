@@ -8,7 +8,7 @@ module "vpc"{
 
     private_subnets = local.private_subnets
     public_subnets = local.public_subnets
-    infra_subnets = local.infra_subnets
+    intra_subnets = local.intra_subnets
 
     enable_nat_gateway = true
 
