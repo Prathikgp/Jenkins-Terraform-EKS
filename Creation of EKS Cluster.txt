@@ -10,19 +10,7 @@ Step 1: Launching an EC2 Instance and Installation of Required Tools
 1.2 Tools Installation
 Java and Jenkins Installation Commands
 ---------------------------------------------------------
-#!/bin/bash
-sudo apt update -y
-wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /etc/apt/keyrings/adoptium.asc
-echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list
-sudo apt update -y
-sudo apt install temurin-17-jdk -y
-/usr/bin/java --version
-curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update -y
-sudo apt-get install jenkins -y
-sudo systemctl start jenkins
-sudo systemctl status jenkins
+
 
 Terraform Installation
 ---------------------------------------------------------
@@ -90,11 +78,20 @@ pipeline {
                 }
             }
         }
+        stage('cleanup'){
+            steps{
+                script{
+                    dir('terraform'){
+                         sh 'rm -rf .terraform .terraform.lock.hcl'
+                    }
+                }
+            }
+        }
         stage('Terraform Initialization'){
             steps{
                 script{
                     dir('terraform'){
-                         sh 'terraform init'
+                         sh 'terraform init -upgrade'
                     }
                 }
             }
@@ -145,10 +142,7 @@ To destroy everything created ----> Open Jenkins job ----> Click on 'Build with 
 
 Terminate the instance also after destroying
 
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Note: I would like to hear your views on this video in the comment section. Also, after you have successfully created the EKS Cluster, please share your views on LinkedIn and tag me.
-
-Thank you
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
