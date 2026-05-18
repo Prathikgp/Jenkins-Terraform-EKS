@@ -68,7 +68,7 @@ Configure the access and secret keys in Jenkins
 Step 4: Writing Terraform Files 
 =======================================================
 <Refer the GitHub Repo for the Terraform Files>
-Repo URL: https://github.com/KastroVKiran/Jenkins-Terraform-EKS.git
+Repo URL: https://github.com/Prathikgp/Jenkins-Terraform-EKS.git
 
 Step 5: Creation of Jenkins Pipeline for Automating EKS Cluster Creation using Terraform
 ====================================================================
@@ -86,7 +86,7 @@ pipeline {
         stage('Clone the Code'){
             steps{
                 script{
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/KastroVKiran/Jenkins-Terraform-EKS.git']])
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Prathikgp/Jenkins-Terraform-EKS.git']])
                 }
             }
         }
@@ -129,7 +129,6 @@ pipeline {
         }
     }
 }
-
 Before saving the job, goto General ----> 'Check' This project is parameterized ----> Choice Parameter ----> Name: action ----> Choices: 
 apply
 destroy (Make sure to write these in two lines) ----> Apply ----> Save ----> Build With Parameters ----> It will ask you to apply or destroy, select 'apply'  ----> Build
